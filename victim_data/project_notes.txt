@@ -1,0 +1,2 @@
+Important details about the Trojan project.
+Do not lose this file.
