@@ -4,7 +4,6 @@ An interactive, web-based educational sandbox that simulates the complete lifecy
 
 ---
 **Group Members**
-
 - Ashlesha Agrawal
 - Garv Gupta
 - Aashi Soni
