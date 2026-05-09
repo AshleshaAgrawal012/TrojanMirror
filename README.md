@@ -3,13 +3,11 @@
 An interactive, web-based educational sandbox that simulates the complete lifecycle of a Banking Trojan attack in a fully controlled and safe environment — built for cybersecurity awareness and academic demonstration.
 
 ---
-
 **Group Members**
 
 - Ashlesha Agrawal
 - Garv Gupta
 - Aashi Soni
-
 ---
 
 **Project Aim**
@@ -22,7 +20,6 @@ This project is entirely sandboxed and safe — no actual malware is involved. A
 - Academic viva / presentations
 - Understanding Indicators of Compromise (IOCs)
 - Visualizing attacker TTPs (Tactics, Techniques and Procedures)
-
 ---
 
 **What We Built**
@@ -156,19 +153,16 @@ source venv/bin/activate
 ```
 
 **Step 3 — Install Dependencies**
-
 ```bash
 pip install flask
 ```
 
 **Step 4 — Run the App**
-
 ```bash
 python backend/app.py
 ```
 
 **Step 5 — Open in Browser**
-
 | Interface | URL |
 |-----------|-----|
 | Victim Shopping Site | http://localhost:5000/ |
@@ -178,9 +172,7 @@ python backend/app.py
 ---
 
 **Demo Credentials**
-
 Use any of the following pre-configured accounts:
-
 | Username | Password |
 |----------|----------|
 | ashlesha | test@123 |
@@ -190,15 +182,11 @@ Use any of the following pre-configured accounts:
 You can also enter any custom username and password — the trojan will capture whatever you type.
 
 ---
-
 **Disclaimer**
-
 This project is built purely for educational purposes. It contains no real malware, no actual network connections to external servers, and no genuinely harmful code. All attack behavior is simulated within a local sandbox. Do not attempt to replicate any of these techniques outside of a controlled environment.
 
 ---
-
 **Tech Stack**
-
 | Layer | Technology |
 |-------|-----------|
 | Backend | Python, Flask |
