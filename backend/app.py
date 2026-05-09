@@ -1,8 +1,9 @@
 import os
 import json
+import atexit
 from flask import Flask, render_template, request, redirect, url_for, send_file, Response, session
 from event_stream import announcer, format_sse
-from trojan_sim import trigger_trojan_simulation
+from trojan_sim import trigger_trojan_simulation, _reset_sandbox
 
 # Paths relative to project root
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -160,6 +161,20 @@ if __name__ == '__main__':
     print("\n" + "="*60)
     print("🚀 Trojan Sandbox Simulation Started")
     print("="*60)
+
+    # ── Sandbox hygiene ──────────────────────────────────────────
+    # Reset victim_data to plaintext BEFORE the server starts so
+    # every fresh run has files ready to be encrypted.
+    print("\n🔄 Restoring victim_data to original plaintext state...")
+    _reset_sandbox()
+    print("   victim_data reset complete.")
+
+    # Restore victim_data back to plaintext when the server exits
+    # (Ctrl+C, kill, or any normal termination) so the next run
+    # always starts with clean files.
+    atexit.register(_reset_sandbox)
+    print("   Shutdown restore hook registered.")
+    # ─────────────────────────────────────────────────────────────
 
     print("\n🛍️ Victim Interface:")
     print("   http://localhost:5000/")

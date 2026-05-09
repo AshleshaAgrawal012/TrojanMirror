@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+.env
+
+# Simulation runtime artifacts — generated fresh each run, not for VCS
+stolen_data/*.log
+victim_data/*.encrypted
+
+# Behavior report — regenerated on each simulation run
+behavior_report.json
+
+# IDE / OS
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
