@@ -1,7 +1,7 @@
 import os
 import json
 import atexit
-from flask import Flask, render_template, request, redirect, url_for, send_file, Response, session
+from flask import Flask, render_template, request, redirect, url_for, send_file, send_from_directory, Response, session
 from event_stream import announcer, format_sse
 from trojan_sim import trigger_trojan_simulation, _reset_sandbox
 
@@ -9,6 +9,7 @@ from trojan_sim import trigger_trojan_simulation, _reset_sandbox
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'frontend', 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'frontend', 'static')
+PRODUCT_IMAGE_DIR = os.path.join(BASE_DIR, 'frontend', 'images')
 
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 app.secret_key = 'super_secret_dummy_key_for_flash_messages'
@@ -33,10 +34,10 @@ def login_required(f):
 
 # --- PRODUCT CATALOG (shared across routes) ---
 PRODUCTS = [
-    {"id": 1, "name": "Classic White T-Shirt", "price": "$19.99", "img": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"},
-    {"id": 2, "name": "Denim Jacket", "price": "$59.99", "img": "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"},
-    {"id": 3, "name": "Black Running Shoes", "price": "$89.99", "img": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"},
-    {"id": 4, "name": "Casual Chinos", "price": "$39.99", "img": "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"},
+    {"id": 1, "name": "Classic White T-Shirt", "price": "$19.99", "img": "tshirt.webp"},
+    {"id": 2, "name": "Denim Jacket", "price": "$59.99", "img": "jacket.webp"},
+    {"id": 3, "name": "Black Running Shoes", "price": "$89.99", "img": "shoes.jpg"},
+    {"id": 4, "name": "Casual Chinos", "price": "$39.99", "img": "chinos.webp"},
 ]
 
 # --- FRONTEND E-COMMERCE ROUTES ---
@@ -46,6 +47,12 @@ def index():
     logged_in = 'username' in session
     msg = request.args.get('msg')  # For "please select a product" flash
     return render_template('shop/index.html', products=PRODUCTS, logged_in=logged_in, username=session.get('username'), msg=msg)
+
+@app.route('/product-images/<path:filename>')
+def product_image(filename):
+    """Serve the product photos stored in frontend/images."""
+    mimetype = 'image/webp' if filename.lower().endswith('.webp') else None
+    return send_from_directory(PRODUCT_IMAGE_DIR, filename, mimetype=mimetype)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

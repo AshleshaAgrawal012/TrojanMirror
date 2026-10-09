@@ -11,7 +11,7 @@
         <form class="p-8" action="{{ url_for('checkout') }}" method="POST">
             <!-- Selected Product Summary -->
             <div class="flex items-center gap-4 mb-8 bg-gray-50 p-4 rounded-xl border border-gray-200">
-                <img src="{{ product.img }}" alt="{{ product.name }}" class="w-20 h-20 rounded-lg object-cover shadow-sm">
+                <img src="{{ url_for('product_image', filename=product.img) }}" alt="{{ product.name }}" class="w-20 h-20 rounded-lg object-cover shadow-sm">
                 <div class="flex-grow">
                     <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
                     <p class="text-gray-500 text-sm">Premium Quality</p>
